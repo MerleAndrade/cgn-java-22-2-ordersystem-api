@@ -2,8 +2,10 @@ package de.neuefische.cgnjava222.ordersystem.shop.product;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import static java.util.List.of;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -27,7 +29,14 @@ class ProductServiceTest {
     @Test
     void listProducts() {
         //given
-        ProductRepo productRepo = new ProductRepo();
+        ProductRepo productRepo = mock(ProductRepo.class);
+        when(productRepo.listProducts()).thenReturn(new ArrayList<>(List.of
+                (       new Product(1, "Apfel"),
+                        new Product(2, "Banane"),
+                        new Product(3, "Zitrone"),
+                        new Product(4, "Mandarine")
+
+                )));
         ProductService productService = new ProductService(productRepo);
 
         //when
