@@ -20,7 +20,7 @@ class OrderServiceTest {
     @Test
     void addAndGetOrder() {
         //given
-        ProductRepo productRepo = new ProductRepo();
+        ProductRepo productRepo = mock(ProductRepo.class);
         ProductService productService = new ProductService(productRepo);
         OrderRepo orderRepo = mock(OrderRepo.class);
         when(orderRepo.getOrder(106)).thenReturn(new Order(106,List.of(
@@ -51,7 +51,7 @@ class OrderServiceTest {
     @Test
     void addAndListOrders() {
         //given
-        ProductRepo productRepo = new ProductRepo();
+        ProductRepo productRepo = mock(ProductRepo.class);
         ProductService productService = new ProductService(productRepo);
         OrderRepo orderRepo = mock(OrderRepo.class);
         when(orderRepo.listOrders()).thenReturn(Collections.singletonList(new Order(106, List.of(
