@@ -6,10 +6,13 @@ import de.neuefische.cgnjava222.ordersystem.shop.product.ProductService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.NoSuchElementException;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 class OrderServiceTest {
 
@@ -19,7 +22,12 @@ class OrderServiceTest {
         //given
         ProductRepo productRepo = new ProductRepo();
         ProductService productService = new ProductService(productRepo);
-        OrderRepo orderRepo = new OrderRepo();
+        OrderRepo orderRepo = mock(OrderRepo.class);
+        when(orderRepo.getOrder(106)).thenReturn(new Order(106,List.of(
+                        new Product(1, "Apfel"),
+                        new Product(3, "Zitrone"),
+                        new Product(4, "Mandarine")
+                )));
         OrderService orderService = new OrderService(productService, orderRepo);
 
         //when
@@ -45,7 +53,12 @@ class OrderServiceTest {
         //given
         ProductRepo productRepo = new ProductRepo();
         ProductService productService = new ProductService(productRepo);
-        OrderRepo orderRepo = new OrderRepo();
+        OrderRepo orderRepo = mock(OrderRepo.class);
+        when(orderRepo.listOrders()).thenReturn(Collections.singletonList(new Order(106, List.of(
+                new Product(1, "Apfel"),
+                new Product(3, "Zitrone"),
+                new Product(4, "Mandarine")
+        ))));
         OrderService orderService = new OrderService(productService, orderRepo);
 
         //when
